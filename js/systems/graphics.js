@@ -1,0 +1,21 @@
+var GraphicsSystem = function(entities) {
+	this.entities = entities;
+};
+
+GraphicsSystem.prototype.run = function() {
+	for (var i=0; i<5; i++) {
+		this.tick();
+	}
+};
+
+GraphicsSystem.prototype.tick = function() {
+	for (var i=0; i<this.entities.length; i++) {
+		if (!'graphics' in entity.components) {
+			continue;
+		}
+
+		entity.components.graphics.draw(this.context);
+	} 
+};
+
+exportsGraphicsSystem = GraphicsSystem;

@@ -1,0 +1,15 @@
+{
+  "name": "flappy-bird",
+  "version": "1.0.0",
+  "description": "flappy bird game recreation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "grant",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^11.1.0",
+    "gulp": "^3.9.0"
+  }
+}
