@@ -9,6 +9,16 @@ BirdGraphicsComponent.prototype.draw = function() {
 
 exports.BirdGraphicsComponent = BirdGraphicsComponent;
 },{}],2:[function(require,module,exports){
+var PipeGraphicsComponent = function(entity) {
+	this.entity = entity;
+};
+
+PipeGraphicsComponent.prototype.draw = function() {
+	console.log("Drawing a pipe");
+};
+
+exports.PipeGraphicsComponent = PipeGraphicsComponent;
+},{}],3:[function(require,module,exports){
 var graphicsComponent = require("../components/graphics/bird");
 
 var Bird = function() {
@@ -22,12 +32,26 @@ var Bird = function() {
 };
 
 exports.Bird = Bird;
-},{"../components/graphics/bird":1}],3:[function(require,module,exports){
+},{"../components/graphics/bird":1}],4:[function(require,module,exports){
+var graphicsComponent = require("../components/graphics/pipe");
+
+var Pipe = function() {
+	console.log("Creating Pipe Entity");
+
+	var graphics = new graphicsComponent.PipeGraphicsComponent(this);
+	this.components = {
+		graphics: graphics
+	};
+};
+
+exports.Pipe = Pipe;
+},{"../components/graphics/pipe":2}],5:[function(require,module,exports){
 var graphicsSystem = require('./systems/graphics');
 var bird = require('./entities/bird');
+var pipe = require('./entities/pipe');
 
 var FlappyBird = function() {
-	this.entities = [new bird.Bird()];
+	this.entities = [new bird.Bird(), new pipe.Pipe()];
 	this.graphics = new graphicsSystem.GraphicsSystem(this.entities);
 };
 
@@ -36,14 +60,14 @@ FlappyBird.prototype.run = function() {
 };
 
 exports.FlappyBird = FlappyBird;
-},{"./entities/bird":2,"./systems/graphics":5}],4:[function(require,module,exports){
+},{"./entities/bird":3,"./entities/pipe":4,"./systems/graphics":7}],6:[function(require,module,exports){
 var flappyBird = require('./flappy_bird');
 
 document.addEventListener('DOMContentLoaded', function() {
 	var app = new flappyBird.FlappyBird();
 	app.run();
 });
-},{"./flappy_bird":3}],5:[function(require,module,exports){
+},{"./flappy_bird":5}],7:[function(require,module,exports){
 var GraphicsSystem = function(entities) {
 	this.entities = entities;
 };
@@ -66,4 +90,4 @@ GraphicsSystem.prototype.tick = function() {
 };
 
 exports.GraphicsSystem = GraphicsSystem;
-},{}]},{},[4]);
+},{}]},{},[6]);
