@@ -10,6 +10,11 @@
   "license": "ISC",
   "devDependencies": {
     "browserify": "^11.1.0",
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-jshint": "^1.11.2",
+    "gulp-util": "^3.0.6",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }
