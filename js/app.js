@@ -3,8 +3,24 @@ var BirdGraphicsComponent = function(entity) {
 	this.entity = entity;
 };
 
-BirdGraphicsComponent.prototype.draw = function() {
-	console.log("Drawing a bird");
+BirdGraphicsComponent.prototype.draw = function(context) {
+
+	var randomNum = Math.random() * 100;
+
+	context.beginPath();
+	
+
+	context.arc(randomNum, randomNum, 10, 0, 2 * Math.PI);
+	context.fillStyle = "green";
+
+	context.fillRect(randomNum, randomNum, 20, 20);
+	context.fillStyle  = "red";
+
+	context.fill();
+	
+	
+
+
 };
 
 exports.BirdGraphicsComponent = BirdGraphicsComponent;
@@ -70,15 +86,29 @@ document.addEventListener('DOMContentLoaded', function() {
 },{"./flappy_bird":5}],7:[function(require,module,exports){
 var GraphicsSystem = function(entities) {
 	this.entities = entities;
+	// Canvas is where we draw
+	this.canvas = document.getElementById('main-canvas');
+	// Context is what we draw to
+	this.context = this.canvas.getContext('2d');
 };
 
 GraphicsSystem.prototype.run = function() {
-	for (var i=0; i<5; i++) {
-		this.tick();
-	}
+	// run the render loop
+	window.requestAnimationFrame(this.tick.bind(this));
 };
 
 GraphicsSystem.prototype.tick = function() {
+	// set the canvas to the correct sze if the window is resized
+	if (this.canvas.width != this.canvas.offsetWidth ||
+		this.canvas.height != this.canvas.offsetHeight) {
+		this.canvas.width = this.canvas.offsetWidth;
+		this.canvas.height = this.canvas.offestHeight;
+	} 
+
+	// clear the canvas 
+	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+	// rendering goes in here
 	for (var i=0; i<this.entities.length; i++) {
 		 var entity = this.entities[i];
 		if (!('graphics' in entity.components)) {
@@ -87,6 +117,8 @@ GraphicsSystem.prototype.tick = function() {
 
 		entity.components.graphics.draw(this.context);
 	} 
+
+	window.requestAnimationFrame(this.tick.bind(this));
 };
 
 exports.GraphicsSystem = GraphicsSystem;
