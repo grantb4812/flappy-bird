@@ -3,23 +3,15 @@ var BirdGraphicsComponent = function(entity) {
 };
 
 BirdGraphicsComponent.prototype.draw = function(context) {
+    var position = this.entity.components.physics.position;
 
-	var randomNum = Math.random() * 100;
-
-	context.beginPath();
-	
-
-	context.arc(randomNum, randomNum, 10, 0, 2 * Math.PI);
-	context.fillStyle = "green";
-
-	context.fillRect(randomNum, randomNum, 20, 20);
-	context.fillStyle  = "red";
-
-	context.fill();
-	
-	
-
-
+    context.save();
+    context.translate(position.x, position.y);
+    context.beginPath();
+    context.arc(0, 0, 0.02, 0, 2 * Math.PI);
+    context.fill();
+    context.closePath();
+    context.restore();
 };
 
 exports.BirdGraphicsComponent = BirdGraphicsComponent;
