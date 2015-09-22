@@ -5,7 +5,7 @@ var Bird = function() {
 	
 	var physics = new physicsComponent.PhysicsComponent(this);
 	physics.position.y = 0.5;
-	physics.acceleration.y = -0.05;
+	physics.acceleration.y = -0.09;
 
 
 	var graphics = new graphicsComponent.BirdGraphicsComponent(this);

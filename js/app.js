@@ -21,8 +21,13 @@ var PipeGraphicsComponent = function(entity) {
 	this.entity = entity;
 };
 
-PipeGraphicsComponent.prototype.draw = function() {
-	console.log("Drawing a pipe");
+PipeGraphicsComponent.prototype.draw = function(context) {
+	
+	
+	context.fillRect(0, 0, 0.01, 0.1);
+	context.fill();
+	
+
 };
 
 exports.PipeGraphicsComponent = PipeGraphicsComponent;
@@ -61,7 +66,7 @@ var Bird = function() {
 	
 	var physics = new physicsComponent.PhysicsComponent(this);
 	physics.position.y = 0.5;
-	physics.acceleration.y = -0.05;
+	physics.acceleration.y = -0.09;
 
 
 	var graphics = new graphicsComponent.BirdGraphicsComponent(this);
@@ -79,6 +84,7 @@ var graphicsComponent = require("../components/graphics/pipe");
 var Pipe = function() {
 	console.log("Creating Pipe Entity");
 
+	var physics = new physicsComponent.Pipe
 	var graphics = new graphicsComponent.PipeGraphicsComponent(this);
 	this.components = {
 		graphics: graphics
@@ -170,11 +176,17 @@ var InputSystem = function(entities) {
 
 InputSystem.prototype.run = function() {
     this.canvas.addEventListener('click', this.onClick.bind(this));
+    this.canvas.addEventListener('touchstart', this.onTouch.bind(this));
 };
 
 InputSystem.prototype.onClick = function() {
     var bird = this.entities[0];
-    bird.components.physics.velocity.y = 0.7;
+    bird.components.physics.velocity.y = 0.1;
+};
+
+InputSystem.prototype.onTouch = function() {
+	var bird = this.entities[0];
+	bird.components.physics.velocity.y = 0.1;
 };
 
 exports.InputSystem = InputSystem;
