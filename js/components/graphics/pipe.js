@@ -4,11 +4,12 @@ var PipeGraphicsComponent = function(entity) {
 
 PipeGraphicsComponent.prototype.draw = function(context) {
 	var position = this.entity.components.physics.position;
+	var dimension = this.entity.components.physics.dimension;
 	
 	context.save();
     context.translate(position.x, position.y);
     context.beginPath();
-	context.fillRect(0, 0, 0.01, 0.1);
+	context.fillRect(0, 0, dimension.x, dimension.y);
 	context.fill();
 	context.closePath();
     context.restore();

@@ -13,6 +13,11 @@ var PhysicsComponent = function(entity) {
         x: 0,
         y: 0
     };
+
+    this.dimension = {
+        x: 0,
+        y: 0
+    }
 };
 
 PhysicsComponent.prototype.update = function(delta) {

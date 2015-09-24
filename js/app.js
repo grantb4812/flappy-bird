@@ -23,11 +23,12 @@ var PipeGraphicsComponent = function(entity) {
 
 PipeGraphicsComponent.prototype.draw = function(context) {
 	var position = this.entity.components.physics.position;
+	var dimension = this.entity.components.physics.dimension;
 	
 	context.save();
     context.translate(position.x, position.y);
     context.beginPath();
-	context.fillRect(0, 0, 0.01, 0.1);
+	context.fillRect(0, 0, dimension.x, dimension.y);
 	context.fill();
 	context.closePath();
     context.restore();
@@ -51,6 +52,11 @@ var PhysicsComponent = function(entity) {
         x: 0,
         y: 0
     };
+
+    this.dimension = {
+        x: 0,
+        y: 0
+    }
 };
 
 PhysicsComponent.prototype.update = function(delta) {
@@ -88,12 +94,15 @@ exports.Bird = Bird;
 var graphicsComponent = require("../components/graphics/pipe");
 var physicsComponent = require("../components/physics/physics");
 
-var Pipe = function(x, y) {
-	var randomPosition = Math.random();
+var Pipe = function(x, y, height) {
+	
+	
 
 	var physics = new physicsComponent.PhysicsComponent(this);
 	physics.position.y = y;
 	physics.position.x = x;
+	physics.dimension.y = height;
+	physics.dimension.x = 0.01;
 
 	physics.acceleration.x = -0.09;
 
@@ -104,6 +113,7 @@ var Pipe = function(x, y) {
 		physics: physics,
 	};
 };
+
 
 exports.Pipe = Pipe;
 },{"../components/graphics/pipe":2,"../components/physics/physics":3}],6:[function(require,module,exports){
@@ -205,6 +215,8 @@ InputSystem.prototype.onTouch = function() {
 
 exports.InputSystem = InputSystem;
 },{}],10:[function(require,module,exports){
+var pipe = require('../entities/pipe');
+
 var PhysicsSystem = function(entities) {
     this.entities = entities;
 };
@@ -212,6 +224,7 @@ var PhysicsSystem = function(entities) {
 PhysicsSystem.prototype.run = function() {
     // Run the update loop
     window.setInterval(this.tick.bind(this), 1000 /60);
+    window.setInterval(this.generatePipe.bind(this), 2000);
 };
 
 PhysicsSystem.prototype.tick = function() {
@@ -225,5 +238,15 @@ PhysicsSystem.prototype.tick = function() {
     }
 };
 
+PhysicsSystem.prototype.generatePipe = function() {
+
+    var randomNum = Math.random() * (0.6 - 0.2) + 0.2; 
+    var secondMax = 1 - (randomNum + 0.2);
+    var secondRandom = Math.random() * (secondMax - 0.2) + 0.2; 
+
+    this.entities.push(new pipe.Pipe(0.9, 0.9, randomNum));
+    this.entities.push(new pipe.Pipe(0.9, 0.1, secondRandom));
+}
+
 exports.PhysicsSystem = PhysicsSystem;
-},{}]},{},[7]);
+},{"../entities/pipe":5}]},{},[7]);
