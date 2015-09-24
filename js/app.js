@@ -22,11 +22,15 @@ var PipeGraphicsComponent = function(entity) {
 };
 
 PipeGraphicsComponent.prototype.draw = function(context) {
+	var position = this.entity.components.physics.position;
 	
-	
+	context.save();
+    context.translate(position.x, position.y);
+    context.beginPath();
 	context.fillRect(0, 0, 0.01, 0.1);
 	context.fill();
-	
+	context.closePath();
+    context.restore();
 
 };
 
@@ -66,10 +70,12 @@ var Bird = function() {
 	
 	var physics = new physicsComponent.PhysicsComponent(this);
 	physics.position.y = 0.5;
-	physics.acceleration.y = -0.09;
+	physics.acceleration.y = -0.1;
 
 
 	var graphics = new graphicsComponent.BirdGraphicsComponent(this);
+
+
 	this.components = {
 		physics: physics,
 		graphics: graphics,
@@ -80,19 +86,27 @@ var Bird = function() {
 exports.Bird = Bird;
 },{"../components/graphics/bird":1,"../components/physics/physics":3}],5:[function(require,module,exports){
 var graphicsComponent = require("../components/graphics/pipe");
+var physicsComponent = require("../components/physics/physics");
 
-var Pipe = function() {
-	console.log("Creating Pipe Entity");
+var Pipe = function(x, y) {
+	var randomPosition = Math.random();
 
-	var physics = new physicsComponent.Pipe
+	var physics = new physicsComponent.PhysicsComponent(this);
+	physics.position.y = y;
+	physics.position.x = x;
+
+	physics.acceleration.x = -0.09;
+
 	var graphics = new graphicsComponent.PipeGraphicsComponent(this);
+
 	this.components = {
-		graphics: graphics
+		graphics: graphics,
+		physics: physics,
 	};
 };
 
 exports.Pipe = Pipe;
-},{"../components/graphics/pipe":2}],6:[function(require,module,exports){
+},{"../components/graphics/pipe":2,"../components/physics/physics":3}],6:[function(require,module,exports){
 var graphicsSystem = require('./systems/graphics');
 var physicsSystem = require('./systems/physics');
 var inputSystem = require('./systems/input');
@@ -101,7 +115,7 @@ var bird = require('./entities/bird');
 var pipe = require('./entities/pipe');
 
 var FlappyBird = function() {
-	this.entities = [new bird.Bird(), new pipe.Pipe()];
+	this.entities = [new bird.Bird(), new pipe.Pipe(0.9, 0.9), new pipe.Pipe(0.9, 0.1)];
 	this.graphics = new graphicsSystem.GraphicsSystem(this.entities);
 	this.physics = new physicsSystem.PhysicsSystem(this.entities);
 	this.inputs = new inputSystem.InputSystem(this.entities);
