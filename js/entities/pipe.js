@@ -1,5 +1,7 @@
 var graphicsComponent = require("../components/graphics/pipe");
 var physicsComponent = require("../components/physics/physics");
+var collisionComponent = require("../components/collision/circle");
+
 
 var Pipe = function(x, y, height) {
 	
@@ -15,10 +17,18 @@ var Pipe = function(x, y, height) {
 
 	var graphics = new graphicsComponent.PipeGraphicsComponent(this);
 
+	var collision = new collisionComponent.CircleCollisionComponent(this, height);
+    collision.onCollision = this.onCollision.bind(this);
+
 	this.components = {
 		graphics: graphics,
 		physics: physics,
+		collision: collision
 	};
+};
+
+Pipe.prototype.onCollision = function(entity) {
+    console.log("Bird collided with entity:", entity);
 };
 
 
