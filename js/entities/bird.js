@@ -8,6 +8,7 @@ var Bird = function() {
 	
 	var physics = new physicsComponent.PhysicsComponent(this);
 	physics.position.y = 0.5;
+	
 	physics.acceleration.y = -0.1;
 
 
@@ -26,7 +27,8 @@ var Bird = function() {
 };
 
 Bird.prototype.onCollision = function(entity) {
-    console.log('this works');
+   		
+   		console.log('this is working');
 };
 
 exports.Bird = Bird;

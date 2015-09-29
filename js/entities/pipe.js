@@ -1,6 +1,6 @@
 var graphicsComponent = require("../components/graphics/pipe");
 var physicsComponent = require("../components/physics/physics");
-var collisionComponent = require("../components/collision/circle");
+var collisionComponent = require("../components/collision/rect");
 
 
 var Pipe = function(x, y, height) {
@@ -17,7 +17,7 @@ var Pipe = function(x, y, height) {
 
 	var graphics = new graphicsComponent.PipeGraphicsComponent(this);
 
-	var collision = new collisionComponent.CircleCollisionComponent(this, height);
+	var collision = new collisionComponent.RectCollisionComponent(this, physics.dimension);
     collision.onCollision = this.onCollision.bind(this);
 
 	this.components = {

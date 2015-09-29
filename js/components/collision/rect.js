@@ -19,15 +19,7 @@ RectCollisionComponent.prototype.collideCircle = function(entity) {
 };
 
 RectCollisionComponent.prototype.collideRect = function(entity) {
-       var clamp = function(value, low, high) {
-        if (value < low) {
-            return low;
-        }
-        if (value > high) {
-            return high;
-        }
-        return value;
-    };
+      
     
     var positionA = this.entity.components.physics.position;
     var positionB = entity.components.physics.position;
