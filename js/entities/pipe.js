@@ -16,7 +16,7 @@ var Pipe = function(x, y, height) {
 	physics.acceleration.x = -0.09;
 
 	var graphics = new graphicsComponent.PipeGraphicsComponent(this);
-
+	
 	var collision = new collisionComponent.RectCollisionComponent(this, physics.dimension);
     collision.onCollision = this.onCollision.bind(this);
 
@@ -27,8 +27,18 @@ var Pipe = function(x, y, height) {
 	};
 };
 
+
+
 Pipe.prototype.onCollision = function(entity) {
-    console.log("Bird collided with entity:", entity);
+	//takes in bird as argument
+
+	entity.components.physics.position.y = 0.5; 
+	entity.components.physics.acceleration.y = -0.1;
+
+	
+    console.log("Pipe collided with entity:", entity);
+    
+
 };
 
 

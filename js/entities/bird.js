@@ -1,7 +1,7 @@
 var graphicsComponent = require("../components/graphics/bird");
 var physicsComponent = require("../components/physics/physics");
 var collisionComponent = require("../components/collision/circle");
-var flappyBird = require("../main");
+var flappyBird = require("../flappy_bird");
 
 
 var Bird = function() {
@@ -27,8 +27,14 @@ var Bird = function() {
 };
 
 Bird.prototype.onCollision = function(entity) {
+		
+   		// takes in pipe as argument
    		
-   		console.log('this is working');
+
+		
+
+   		console.log("Bird collided with entity:", entity);
+   		
 };
 
 exports.Bird = Bird;

@@ -6,15 +6,15 @@ var CircleCollisionComponent = function(entity, radius) {
 };
 
 CircleCollisionComponent.prototype.collidesWith = function(entity) {
-    if (entity.components.collision.type == 'circle') {
+  /*  if (entity.components.collision.type == 'circle') {
         return this.collideCircle(entity);
-    }
-    else if (entity.components.collision.type == 'rect') {
+    } 
+    else */if (entity.components.collision.type == 'rect') {
         return this.collideRect(entity);
     }
     return false;
 };
-
+/*
 CircleCollisionComponent.prototype.collideCircle = function(entity) {
     var positionA = this.entity.components.physics.position;
     var positionB = entity.components.physics.position;
@@ -30,7 +30,7 @@ CircleCollisionComponent.prototype.collideCircle = function(entity) {
 
     return distanceSquared < radiusSum * radiusSum;
 };
-
+*/
 CircleCollisionComponent.prototype.collideRect = function(entity) {
     var clamp = function(value, low, high) {
         if (value < low) {
@@ -74,17 +74,17 @@ var RectCollisionComponent = function(entity, size) {
 RectCollisionComponent.prototype.collidesWith = function(entity) {
     if (entity.components.collision.type == 'circle') {
         return this.collideCircle(entity);
-    }
+    } /*
     else if (entity.components.collision.type == 'rect') {
         return this.collideRect(entity);
-    }
+    } */
     return false;
 };
 
 RectCollisionComponent.prototype.collideCircle = function(entity) {
     return entity.components.collision.collideRect(this.entity);
 };
-
+/*
 RectCollisionComponent.prototype.collideRect = function(entity) {
       
     
@@ -107,7 +107,7 @@ RectCollisionComponent.prototype.collideRect = function(entity) {
     return !(leftA > rightB || leftB > rightA ||
              bottomA > topB || bottomB > topA);
 };
-
+*/
 exports.RectCollisionComponent = RectCollisionComponent;
 },{}],3:[function(require,module,exports){
 var BirdGraphicsComponent = function(entity) {
@@ -167,7 +167,7 @@ var PhysicsComponent = function(entity) {
     this.dimension = {
         x: 0,
         y: 0
-    }
+    };
 };
 
 PhysicsComponent.prototype.update = function(delta) {
@@ -183,7 +183,7 @@ exports.PhysicsComponent = PhysicsComponent;
 var graphicsComponent = require("../components/graphics/bird");
 var physicsComponent = require("../components/physics/physics");
 var collisionComponent = require("../components/collision/circle");
-var flappyBird = require("../main");
+var flappyBird = require("../flappy_bird");
 
 
 var Bird = function() {
@@ -209,12 +209,18 @@ var Bird = function() {
 };
 
 Bird.prototype.onCollision = function(entity) {
+		
+   		// takes in pipe as argument
    		
-   		console.log('this is working');
+
+		
+
+   		console.log("Bird collided with entity:", entity);
+   		
 };
 
 exports.Bird = Bird;
-},{"../components/collision/circle":1,"../components/graphics/bird":3,"../components/physics/physics":5,"../main":9}],7:[function(require,module,exports){
+},{"../components/collision/circle":1,"../components/graphics/bird":3,"../components/physics/physics":5,"../flappy_bird":8}],7:[function(require,module,exports){
 var graphicsComponent = require("../components/graphics/pipe");
 var physicsComponent = require("../components/physics/physics");
 var collisionComponent = require("../components/collision/rect");
@@ -233,7 +239,7 @@ var Pipe = function(x, y, height) {
 	physics.acceleration.x = -0.09;
 
 	var graphics = new graphicsComponent.PipeGraphicsComponent(this);
-
+	
 	var collision = new collisionComponent.RectCollisionComponent(this, physics.dimension);
     collision.onCollision = this.onCollision.bind(this);
 
@@ -244,8 +250,18 @@ var Pipe = function(x, y, height) {
 	};
 };
 
+
+
 Pipe.prototype.onCollision = function(entity) {
-    console.log("Bird collided with entity:", entity);
+	//takes in bird as argument
+
+	entity.components.physics.position.y = 0.5; 
+	entity.components.physics.acceleration.y = -0.1;
+
+	
+    console.log("Pipe collided with entity:", entity);
+    
+
 };
 
 
@@ -259,7 +275,7 @@ var bird = require('./entities/bird');
 var pipe = require('./entities/pipe');
 
 var FlappyBird = function() {
-	this.entities = [new bird.Bird(), new pipe.Pipe(0.9, 0.9, 0.1), new pipe.Pipe(0.9, 0.1, 0.1)];
+	this.entities = [new bird.Bird()];
 	this.graphics = new graphicsSystem.GraphicsSystem(this.entities);
 	this.physics = new physicsSystem.PhysicsSystem(this.entities);
 	this.inputs = new inputSystem.InputSystem(this.entities);

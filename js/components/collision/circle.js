@@ -5,15 +5,15 @@ var CircleCollisionComponent = function(entity, radius) {
 };
 
 CircleCollisionComponent.prototype.collidesWith = function(entity) {
-    if (entity.components.collision.type == 'circle') {
+  /*  if (entity.components.collision.type == 'circle') {
         return this.collideCircle(entity);
-    }
-    else if (entity.components.collision.type == 'rect') {
+    } 
+    else */if (entity.components.collision.type == 'rect') {
         return this.collideRect(entity);
     }
     return false;
 };
-
+/*
 CircleCollisionComponent.prototype.collideCircle = function(entity) {
     var positionA = this.entity.components.physics.position;
     var positionB = entity.components.physics.position;
@@ -29,7 +29,7 @@ CircleCollisionComponent.prototype.collideCircle = function(entity) {
 
     return distanceSquared < radiusSum * radiusSum;
 };
-
+*/
 CircleCollisionComponent.prototype.collideRect = function(entity) {
     var clamp = function(value, low, high) {
         if (value < low) {

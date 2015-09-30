@@ -17,7 +17,7 @@ var PhysicsComponent = function(entity) {
     this.dimension = {
         x: 0,
         y: 0
-    }
+    };
 };
 
 PhysicsComponent.prototype.update = function(delta) {
