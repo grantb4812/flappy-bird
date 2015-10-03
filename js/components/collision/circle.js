@@ -13,7 +13,7 @@ CircleCollisionComponent.prototype.collidesWith = function(entity) {
     }
     return false;
 };
-/*
+
 CircleCollisionComponent.prototype.collideCircle = function(entity) {
     var positionA = this.entity.components.physics.position;
     var positionB = entity.components.physics.position;
@@ -29,7 +29,7 @@ CircleCollisionComponent.prototype.collideCircle = function(entity) {
 
     return distanceSquared < radiusSum * radiusSum;
 };
-*/
+
 CircleCollisionComponent.prototype.collideRect = function(entity) {
     var clamp = function(value, low, high) {
         if (value < low) {

@@ -1,7 +1,7 @@
 var graphicsComponent = require("../components/graphics/pipe");
 var physicsComponent = require("../components/physics/physics");
 var collisionComponent = require("../components/collision/rect");
-
+var flappyBird = require("../flappy_bird");
 
 var Pipe = function(x, y, height) {
 	
@@ -32,9 +32,9 @@ var Pipe = function(x, y, height) {
 Pipe.prototype.onCollision = function(entity) {
 	//takes in bird as argument
 
-	entity.components.physics.position.y = 0.5; 
-	entity.components.physics.acceleration.y = -0.1;
 
+	var newGame = new flappyBird.FlappyBird();
+	newGame.run();
 	
     console.log("Pipe collided with entity:", entity);
     

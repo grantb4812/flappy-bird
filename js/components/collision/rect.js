@@ -7,17 +7,17 @@ var RectCollisionComponent = function(entity, size) {
 RectCollisionComponent.prototype.collidesWith = function(entity) {
     if (entity.components.collision.type == 'circle') {
         return this.collideCircle(entity);
-    } /*
+    } 
     else if (entity.components.collision.type == 'rect') {
         return this.collideRect(entity);
-    } */
+    } 
     return false;
 };
 
 RectCollisionComponent.prototype.collideCircle = function(entity) {
     return entity.components.collision.collideRect(this.entity);
 };
-/*
+
 RectCollisionComponent.prototype.collideRect = function(entity) {
       
     
@@ -40,5 +40,5 @@ RectCollisionComponent.prototype.collideRect = function(entity) {
     return !(leftA > rightB || leftB > rightA ||
              bottomA > topB || bottomB > topA);
 };
-*/
+
 exports.RectCollisionComponent = RectCollisionComponent;

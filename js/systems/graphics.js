@@ -16,7 +16,7 @@ GraphicsSystem.prototype.tick = function() {
 	if (this.canvas.width != this.canvas.offsetWidth ||
 		this.canvas.height != this.canvas.offsetHeight) {
 		this.canvas.width = this.canvas.offsetWidth;
-		this.canvas.height = this.canvas.offestHeight;
+		this.canvas.height = this.canvas.offsetHeight;
 	} 
 
 	// clear the canvas 

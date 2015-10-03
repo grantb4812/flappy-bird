@@ -14,7 +14,7 @@ CircleCollisionComponent.prototype.collidesWith = function(entity) {
     }
     return false;
 };
-/*
+
 CircleCollisionComponent.prototype.collideCircle = function(entity) {
     var positionA = this.entity.components.physics.position;
     var positionB = entity.components.physics.position;
@@ -30,7 +30,7 @@ CircleCollisionComponent.prototype.collideCircle = function(entity) {
 
     return distanceSquared < radiusSum * radiusSum;
 };
-*/
+
 CircleCollisionComponent.prototype.collideRect = function(entity) {
     var clamp = function(value, low, high) {
         if (value < low) {
@@ -74,17 +74,17 @@ var RectCollisionComponent = function(entity, size) {
 RectCollisionComponent.prototype.collidesWith = function(entity) {
     if (entity.components.collision.type == 'circle') {
         return this.collideCircle(entity);
-    } /*
+    } 
     else if (entity.components.collision.type == 'rect') {
         return this.collideRect(entity);
-    } */
+    } 
     return false;
 };
 
 RectCollisionComponent.prototype.collideCircle = function(entity) {
     return entity.components.collision.collideRect(this.entity);
 };
-/*
+
 RectCollisionComponent.prototype.collideRect = function(entity) {
       
     
@@ -107,7 +107,7 @@ RectCollisionComponent.prototype.collideRect = function(entity) {
     return !(leftA > rightB || leftB > rightA ||
              bottomA > topB || bottomB > topA);
 };
-*/
+
 exports.RectCollisionComponent = RectCollisionComponent;
 },{}],3:[function(require,module,exports){
 var BirdGraphicsComponent = function(entity) {
@@ -190,7 +190,6 @@ var Bird = function() {
 	
 	var physics = new physicsComponent.PhysicsComponent(this);
 	physics.position.y = 0.5;
-	
 	physics.acceleration.y = -0.1;
 
 
@@ -224,7 +223,7 @@ exports.Bird = Bird;
 var graphicsComponent = require("../components/graphics/pipe");
 var physicsComponent = require("../components/physics/physics");
 var collisionComponent = require("../components/collision/rect");
-
+var flappyBird = require("../flappy_bird");
 
 var Pipe = function(x, y, height) {
 	
@@ -255,9 +254,9 @@ var Pipe = function(x, y, height) {
 Pipe.prototype.onCollision = function(entity) {
 	//takes in bird as argument
 
-	entity.components.physics.position.y = 0.5; 
-	entity.components.physics.acceleration.y = -0.1;
 
+	var newGame = new flappyBird.FlappyBird();
+	newGame.run();
 	
     console.log("Pipe collided with entity:", entity);
     
@@ -266,7 +265,7 @@ Pipe.prototype.onCollision = function(entity) {
 
 
 exports.Pipe = Pipe;
-},{"../components/collision/rect":2,"../components/graphics/pipe":4,"../components/physics/physics":5}],8:[function(require,module,exports){
+},{"../components/collision/rect":2,"../components/graphics/pipe":4,"../components/physics/physics":5,"../flappy_bird":8}],8:[function(require,module,exports){
 var graphicsSystem = require('./systems/graphics');
 var physicsSystem = require('./systems/physics');
 var inputSystem = require('./systems/input');
@@ -348,7 +347,7 @@ GraphicsSystem.prototype.tick = function() {
 	if (this.canvas.width != this.canvas.offsetWidth ||
 		this.canvas.height != this.canvas.offsetHeight) {
 		this.canvas.width = this.canvas.offsetWidth;
-		this.canvas.height = this.canvas.offestHeight;
+		this.canvas.height = this.canvas.offsetHeight;
 	} 
 
 	// clear the canvas 
