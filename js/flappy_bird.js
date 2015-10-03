@@ -18,4 +18,8 @@ FlappyBird.prototype.run = function() {
 	this.inputs.run();
 };
 
+FlappyBird.prototype.reset = function () {
+	this.entities.splice(1, this.entities.length - 1);
+}
+
 exports.FlappyBird = FlappyBird;

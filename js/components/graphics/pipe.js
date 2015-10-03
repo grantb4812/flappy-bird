@@ -9,7 +9,8 @@ PipeGraphicsComponent.prototype.draw = function(context) {
 	context.save();
     context.translate(position.x, position.y);
     context.beginPath();
-	context.fillRect(0, 0, dimension.x, dimension.y);
+	//context.fillRect(0, 0, dimension.x, dimension.y);
+	context.rect(-dimension.x / 2, -dimension.y / 2, dimension.x, dimension.y )
 	context.fill();
 	context.closePath();
     context.restore();

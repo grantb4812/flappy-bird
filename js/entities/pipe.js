@@ -33,8 +33,10 @@ Pipe.prototype.onCollision = function(entity) {
 	//takes in bird as argument
 
 
-	var newGame = new flappyBird.FlappyBird();
-	newGame.run();
+	//var newGame = new flappyBird.FlappyBird();
+	//newGame.run();
+
+	window.app.reset();
 	
     console.log("Pipe collided with entity:", entity);
     

@@ -139,7 +139,8 @@ PipeGraphicsComponent.prototype.draw = function(context) {
 	context.save();
     context.translate(position.x, position.y);
     context.beginPath();
-	context.fillRect(0, 0, dimension.x, dimension.y);
+	//context.fillRect(0, 0, dimension.x, dimension.y);
+	context.rect(-dimension.x / 2, -dimension.y / 2, dimension.x, dimension.y )
 	context.fill();
 	context.closePath();
     context.restore();
@@ -255,8 +256,10 @@ Pipe.prototype.onCollision = function(entity) {
 	//takes in bird as argument
 
 
-	var newGame = new flappyBird.FlappyBird();
-	newGame.run();
+	//var newGame = new flappyBird.FlappyBird();
+	//newGame.run();
+
+	window.app.reset();
 	
     console.log("Pipe collided with entity:", entity);
     
@@ -286,13 +289,18 @@ FlappyBird.prototype.run = function() {
 	this.inputs.run();
 };
 
+FlappyBird.prototype.reset = function () {
+	this.entities.splice(1, this.entities.length - 1);
+}
+
 exports.FlappyBird = FlappyBird;
 },{"./entities/bird":6,"./entities/pipe":7,"./systems/graphics":11,"./systems/input":12,"./systems/physics":13}],9:[function(require,module,exports){
 var flappyBird = require('./flappy_bird');
 
 document.addEventListener('DOMContentLoaded', function() {
 	var app = new flappyBird.FlappyBird();
-	app.run();
+	window.app = app;
+	window.app.run();
 });
 },{"./flappy_bird":8}],10:[function(require,module,exports){
 var CollisionSystem = function(entities) {
